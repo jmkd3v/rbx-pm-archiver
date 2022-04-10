@@ -9,6 +9,8 @@ This tool serves as a way to easily back up those messages for safe-keeping.
 
 ## Usage
 For CLI usage, run `py rbx_pm_archiver.py --help`.
+To obtain a token, find the `.ROBLOSECURITY` cookie from your browser and copy its contents.
+Make sure you wrap it in double quotes before passing it as an argument - for example, don't do `--token _|WARNING|_abc`, do `--token "_|WARNING|_abc"`.
 
 ### JSON archives
 rbx-pm-archiver can generate a JSON archive of your old messages. This won't be very human-readable, but it contains the most information, like author IDs, creation dates, updated dates, and more. It is recommended that you archive with this method at least once just so you have the JSON data for safe-keeping.
