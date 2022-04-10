@@ -95,7 +95,8 @@ async def get_raw_messages(
 
 async def get_valid_messages(
         session: aiohttp.ClientSession,
-        rest_delay: int = 1
+        rest_delay: int = 1,
+        convert_dates: bool = False
 ):
     messages = []
 
@@ -116,7 +117,8 @@ async def get_valid_messages(
 
         for raw_message in raw_messages["collection"]:
             created_date = parse(raw_message["created"])
-            raw_message["created"] = created_date
+            if convert_dates:
+                raw_message["created"] = created_date
             if created_date > cutoff_date:
                 continue
             from_roblox = raw_message["sender"]["id"] == 1
@@ -141,7 +143,8 @@ async def get_valid_messages(
         await asyncio.sleep(rest_delay)
 
     typer.echo(f"Found {len(messages)} valid messages")
-    messages.sort(key=lambda message: message["created"], reverse=True)
+    if convert_dates:
+        messages.sort(key=lambda message: message["created"], reverse=True)
 
     return messages
 
@@ -171,9 +174,10 @@ async def main(
         typer.echo(f"Logged in as {name_string} - https://www.roblox.com/users/{user_id}/profile")
         start_time = timer()
         archive_date = datetime.now(timezone.utc)
-        messages = await get_valid_messages(session)
 
         if output_format == OutputFormat.json:
+            messages = await get_valid_messages(session, convert_dates=False)
+
             async with aiofiles.open(
                 file=path,
                 mode="w",
@@ -181,6 +185,8 @@ async def main(
             ) as file:
                 await file.write(json.dumps(messages, indent=2))
         elif output_format == OutputFormat.html:
+            messages = await get_valid_messages(session, convert_dates=True)
+
             # start by moving over static files (should be async but whatever)
             for a_path in {
                 html_assets_path / "style.css",
