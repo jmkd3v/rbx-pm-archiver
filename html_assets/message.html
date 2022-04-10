@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ message.title }}</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="root">
+    <a href="index.html">Back</a>
+    <article>
+      <h1>{{ message.title }}</h1>
+      <div id="author">
+        <img src="{{ message.author.thumbnail_url }}" id="author-thumbnail" class="thumbnail">
+        <div class="author-info">
+          <a href="{{ message.author.profile_url }}" id="author-name-container">
+            {{ message.author.display_name }}
+            <span class="author-username">@{{ message.author.name }}</span>
+          </a>
+          <span class="author-post-date">{{ message.post_date }}</span>
+        </div>
+      </div>
+      <main id="body">
+        {{ message.body | safe }}
+      </main>
+    </article>
+  </div>
+</body>
+</html>

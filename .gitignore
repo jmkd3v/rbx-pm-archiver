@@ -118,6 +118,4 @@ dmypy.json
 !.idea/runConfigurations
 
 jmkdev_tests/
-
-# rbxmod format
-*.rbxmod
+output/
