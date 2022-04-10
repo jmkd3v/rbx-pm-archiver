@@ -26,7 +26,7 @@ index_template = template_environment.get_template("index.html")
 message_template = template_environment.get_template("message.html")
 
 app = typer.Typer()
-cutoff_date = datetime(2019, 5, 1, tzinfo=timezone.utc)
+cutoff_date = datetime(2019, 1, 1, tzinfo=timezone.utc)
 
 
 class OutputFormat(Enum):
