@@ -21,6 +21,7 @@ py rbx_pm_archiver.py --token ROBLOSECURITY_HERE --path messages.json
 ### HTML archives
 rbx-pm-archiver can generate a rich, browsable HTML archive of your old messages. This is the easiest way to browse your old messages and is very human readable. If you use this method, you should also make a JSON archive as well as it contains more data.
 ![A screenshot of an archived message](/assets/demo_image.png)
+Make sure you create the target folder (in this case, `./output`) before running this command!
 ```
 py rbx_pm_archiver.py --token ROBLOSECURITY_HERE --path ./output --output-format html
 ```
