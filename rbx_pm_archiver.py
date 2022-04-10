@@ -131,7 +131,7 @@ async def get_valid_messages(
 
     chunk_size = 32  # send this many requests in parallel
 
-    for page_offset in range(600, page_count, chunk_size):
+    for page_offset in range(1, page_count, chunk_size):
         tasks = []
         for page_number in range(page_offset, min(page_offset + chunk_size, page_count)):
             tasks.append(filter_messages(page_number))
