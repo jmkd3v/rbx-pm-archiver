@@ -119,8 +119,10 @@ async def get_valid_messages(
             raw_message["created"] = created_date
             if created_date > cutoff_date:
                 continue
-            if not raw_message["isSystemMessage"]:
-                continue
+            from_roblox = raw_message["sender"]["id"] == 1
+            if not from_roblox:
+                if not raw_message["isSystemMessage"]:
+                    continue
             messages.append(raw_message)
 
         page_count = raw_messages["totalPages"]
