@@ -4,7 +4,7 @@ This tool serves as a way to easily back up those messages for safe-keeping.
 
 ## Setup
 1. Install Python 3.7 or later: https://www.python.org/downloads/
-2. Install `typer`, `aiohttp`, `aiofiles`, and `python-dateutil`: `pip3 install typer aiohttp aiofiles python-dateutil`
+2. Install `typer`, `aiohttp`, `aiofiles`, `python-dateutil` and `jinja2`: `pip3 install typer aiohttp aiofiles python-dateutil jinja2`
 3. Clone this repository to your computer and open it in your terminal
 
 ## Usage
