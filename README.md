@@ -1,5 +1,5 @@
 # rbx-pm-archiver
-On April 20th, 2022, Roblox is deleting all system messages sent to users before January 1st, 2019.
+On April 20th, 2022, Roblox is deleting all __system messages__ (not from other users) sent to users before January 1st, 2019.
 This tool serves as a way to easily back up those messages for safe-keeping.
 
 ## Setup
