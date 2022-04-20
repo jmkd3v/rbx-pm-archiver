@@ -95,8 +95,9 @@ async def get_raw_messages(
 
 async def get_valid_messages(
         session: aiohttp.ClientSession,
+        message_tab: str,
         rest_delay: int = 1,
-        convert_dates: bool = False
+        convert_dates: bool = False,
 ):
     messages = []
 
@@ -112,7 +113,7 @@ async def get_valid_messages(
             session=session,
             page_number=page_number,
             page_size=page_size,
-            message_tab="Inbox"
+            message_tab=message_tab
         )
 
         for raw_message in raw_messages["collection"]:
@@ -149,6 +150,23 @@ async def get_valid_messages(
     return messages
 
 
+async def get_all_valid_messages(
+        session: aiohttp.ClientSession,
+        rest_delay: int = 1,
+        convert_dates: bool = False
+):
+    messages = []
+    for message_tab in ["Inbox", "Archive"]:
+        print(f"Working on tab {message_tab}...")
+        messages += await get_valid_messages(
+            session=session,
+            rest_delay=rest_delay,
+            convert_dates=convert_dates,
+            message_tab=message_tab
+        )
+    return messages
+
+
 async def main(
         path: Path,
         output_format: OutputFormat,
@@ -176,7 +194,7 @@ async def main(
         archive_date = datetime.now(timezone.utc)
 
         if output_format == OutputFormat.json:
-            messages = await get_valid_messages(session, convert_dates=False)
+            messages = await get_all_valid_messages(session, convert_dates=False)
 
             async with aiofiles.open(
                 file=path,
@@ -185,7 +203,7 @@ async def main(
             ) as file:
                 await file.write(json.dumps(messages, indent=2))
         elif output_format == OutputFormat.html:
-            messages = await get_valid_messages(session, convert_dates=True)
+            messages = await get_all_valid_messages(session, convert_dates=True)
 
             # start by moving over static files (should be async but whatever)
             for a_path in {
